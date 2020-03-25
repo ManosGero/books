@@ -1,48 +1,49 @@
 from tkinter import *
-import backend
+from backend import Database
 
+database = Database("books.db")
 
 def get_selected_row(event):
-        global selected_tube
-        index=list1.curselection()[0]
-        selected_tube = list1.get(index)
-        e1.delete(0,END)
-        e1.insert(END,selected_tube[1])
-        e2.delete(0,END)
-        e2.insert(END,selected_tube[2])
-        e3.delete(0,END)
-        e3.insert(END,selected_tube[3])
-        e4.delete(0,END)
-        e4.insert(END,selected_tube[4])
-        return(selected_tube)
+	global selected_tube
+	index=list1.curselection()[0]
+	selected_tube = list1.get(index)
+	e1.delete(0,END)
+	e1.insert(END,selected_tube[1])
+	e2.delete(0,END)
+	e2.insert(END,selected_tube[2])
+	e3.delete(0,END)
+	e3.insert(END,selected_tube[3])
+	e4.delete(0,END)
+	e4.insert(END,selected_tube[4])
+	return(selected_tube)
 
 
 
 def view_command():
     list1.delete(0,END)
-    for row in backend.view():
+    for row in database.view():
         list1.insert(END,row)
 
 def search_command():
     list1.delete(0,END)
-    for row in backend.search(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()):
+    for row in database.search(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()):
         list1.insert(END,row)
 
 def add_command():
-    backend.insert(title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
+    database.insert(title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
     view_command()
 
 def update_command():
     try:
         list1.delete(0, END)
-        backend.update(selected_tube[0],title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
+        database.update(selected_tube[0],title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
         view_command()
     except:
         pass
 
 def delete_command():
     try:
-        backend.delete(selected_tube[0])
+        database.delete(selected_tube[0])
         view_command()
     except:
         pass
