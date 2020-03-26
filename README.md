@@ -14,4 +14,4 @@ You can:
   Search a book
   
   
-  The program is written  with python and use a sqlite Database for storing the data
+  The program is written  with Python 3 and use a sqlite Database for storing the data
